@@ -1,0 +1,2 @@
+# Ignore sensitive firebase service account keys to prevent GitHub Secret Scanning blocks
+*firebase-adminsdk*.json

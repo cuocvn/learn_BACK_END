@@ -26,9 +26,14 @@ public function __construct()
         $stmt = $this->conn->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-      // 2. Lấy chi tiết 1 sản phẩm theo ID
+      // 2. Lấy chi tiết 1 sản phẩm theo ID (kèm tên các danh mục)
     public function getProductById($id) {
-        $sql = "SELECT * FROM products WHERE id = ?";
+        $sql = "SELECT p.*, GROUP_CONCAT(c.name SEPARATOR ', ') AS category_names 
+                FROM products p 
+                LEFT JOIN product_categories pc ON p.id = pc.product_id 
+                LEFT JOIN categories c ON pc.category_id = c.id 
+                WHERE p.id = ?
+                GROUP BY p.id";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);

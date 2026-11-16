@@ -45,9 +45,14 @@ $products = $productModel->getAllProduct(6);
           <li class="nav-item"><a class="nav-link text-warning" href="admin-products.php">Quản trị</a></li>
         </ul>
         <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="cart.php">Giỏ hàng <span class="badge bg-danger">0</span></a></li>
-          <li class="nav-item"><a class="nav-link" href="login.php">Đăng nhập</a></li>
-          <li class="nav-item"><a class="nav-link" href="register.php">Đăng ký</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.php">Giỏ hàng <span class="badge bg-danger"><?= array_sum($_SESSION['cart'] ?? []) ?></span></a></li>
+          <?php if (isset($_SESSION['user'])): ?>
+            <li class="nav-item"><span class="nav-link text-white">Chào, <?= htmlspecialchars($_SESSION['user']['fullname']) ?></span></li>
+            <li class="nav-item"><a class="nav-link text-warning" href="logout.php">Đăng xuất</a></li>
+          <?php else: ?>
+            <li class="nav-item"><a class="nav-link" href="login.php">Đăng nhập</a></li>
+            <li class="nav-item"><a class="nav-link" href="register.php">Đăng ký</a></li>
+          <?php endif; ?>
         </ul>
       </div>
     </div>

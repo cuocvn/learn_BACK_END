@@ -1,16 +1,18 @@
 <?php
-$host='localhost';
-$dbname='shop_db';
-$user='root';
-$pass='';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
-try{
-$conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass );
-//baop loi ra man hinh neu sai cau lenh
-$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$host = 'localhost';
+$dbname = 'shop_db';
+$user = 'root';
+$pass = '';
 
-
-}catch (PDOException $e){
-    die("Loi ket noi: ".$e->getMessage());
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
+    // Báo lỗi ra màn hình nếu sai câu lệnh SQL
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Lỗi kết nối CSDL: " . $e->getMessage());
 }
 ?>
